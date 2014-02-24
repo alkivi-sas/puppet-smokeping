@@ -65,9 +65,9 @@ class smokeping::config {
     case $mode {
         ## Slave configuration
         'slave': {
-            if $smokeping::slave_display_name == '' { $display_name = $::hostname }
+            if $smokeping::slave_display_name == '' { $display_name = $::hostname } else { $display_name = $smokeping::slave_display_name }
             if $smokeping::slave_color == '' { $slave_color = sprintf('%06d', fqdn_rand('999999')) }
-            smokeping::slave { $::hostname:
+            smokeping::slave { $smokeping::slave_name:
                 location     => $smokeping::slave_location,
                 display_name => $display_name,
                 color        => $slave_color,

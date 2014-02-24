@@ -32,14 +32,14 @@ define smokeping::slave(
       group   => smokeping,
       content => $random_value,
   }
-  @@concat::fragment { "${::hostname}-secret":
+  @@concat::fragment { "${name}-secret":
       target  => $smokeping::slave_secrets,
       order   => 10,
       content => "${smokeping::slave_name}:${random_value}\n",
       tag     => "smokeping-slave-secret-${master}",
   }
 
-  $filename = "${smokeping::slave_dir}/${::hostname}"
+  $filename = "${smokeping::slave_dir}/${name}"
   @@file { $filename:
       content => template('smokeping/slave.erb'),
       tag     => "smokeping-slave-${master}",
