@@ -18,6 +18,7 @@ class smokeping::install {
             owner   => $smokeping::daemon_user,
             group   => $smokeping::daemon_group,
             require => Package['smokeping'],
+            ignore  => "*.slave_cache",
             recurse => true;
         $smokeping::path_piddir:
             ensure  => directory,
